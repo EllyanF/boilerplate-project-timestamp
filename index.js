@@ -34,7 +34,7 @@ app.get("/api/:date?", (req, res) => {
     });
   };
 
-  new Date(date)
+  
 });
 
 
