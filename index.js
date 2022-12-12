@@ -4,11 +4,12 @@
 // init project
 var express = require('express');
 var app = express();
+require('dotenv').config();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
-app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+app.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -21,7 +22,19 @@ app.get("/", function (req, res) {
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+  res.json({ greeting: 'hello API' });
+});
+
+app.get("/api/:date?", (req, res) => {
+  var date = req.params.date;
+  if (date === undefined) {
+    var currentDate = new Date();
+    res.json({
+      "unix": currentDate.getTime() / 1000, "utc": currentDate.toUTCString()
+    });
+  };
+
+  new Date(date)
 });
 
 
