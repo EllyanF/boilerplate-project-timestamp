@@ -30,7 +30,7 @@ app.get("/api/:date?", (req, res) => {
   if (date === undefined) {
     var currentDate = new Date();
     res.json({
-      "unix": currentDate.getTime() / 1000, "utc": currentDate.toUTCString()
+      "unix": Math.floor(currentDate.getTime() / 1000), "utc": currentDate.toUTCString()
     });
   };
 
