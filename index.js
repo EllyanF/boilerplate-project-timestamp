@@ -25,7 +25,7 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.get("/api/:date?", (req, res) => {
+app.get("/api/:date", (req, res) => {
   var date = req.params.date;
   //Shows current date if parameter is empty
   if (date === undefined) {
@@ -39,18 +39,18 @@ app.get("/api/:date?", (req, res) => {
   if (!(isNaN(date))) {
     var unixInNumber = parseInt(date);
     return res.json({
-      "unix": date, "utc": new Date(unixInNumber).toUTCString()
+      "unix": unixInNumber, "utc": new Date(unixInNumber).toUTCString()
     });
   };
 
   //Sends JSON about invalid date format
   var gmtDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/gm;
   if (!(date.match(gmtDatePattern) instanceof Array) && isNaN(date)) {
-    return res.status(422).json({
+    return res.json({
       "error": "Invalid Date"
     });
   } else {
-    return res.status(200).json({
+    return res.json({
       "unix": new Date(date).getTime(), "utc": new Date(date).toUTCString()
     });
   };
