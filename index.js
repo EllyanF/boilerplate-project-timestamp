@@ -39,7 +39,7 @@ app.get("/api/:date?", (req, res) => {
   if (!(isNaN(date))) {
     var unixInNumber = parseInt(date);
     return res.json({
-      "unix": date, "utc": new Date(unixInNumber).toUTCString()
+      "unix": unixInNumber, "utc": new Date(unixInNumber).toUTCString()
     });
   };
 
