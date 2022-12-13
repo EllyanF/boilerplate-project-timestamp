@@ -36,17 +36,17 @@ app.get("/api/:date?", (req, res) => {
   };
 
   //Maintain unix date if it's already on request body
-  var gmtDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/gm;
   if (!(isNaN(date))) {
-    var unixInMilisseconds = date * 1000;
+    var unixInNumber = parseInt(date);
     res.json({
-      "unix": date, "utc": new Date(unixInMilisseconds).toUTCString()
+      "unix": date, "utc": new Date(unixInNumber).toUTCString()
     });
   };
-  
+
   //Sends JSON about invalid date format
+  var gmtDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/gm;
   if (!(date.match(gmtDatePattern) instanceof Array) && isNaN(date)) {
-  res.status(422).json({
+    res.status(422).json({
       "error": "Invalid Date"
     });
   };
