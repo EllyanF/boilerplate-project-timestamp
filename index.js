@@ -43,20 +43,17 @@ app.get("/api/:date?", (req, res) => {
     });
   };
 
-  //Sends JSON about invalid date format
-  var gmtDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/gm;
-  if (!(date.match(gmtDatePattern) instanceof Array) && isNaN(date)) {
+  //Check if date inserted is invalid
+  if (isNaN(Date.parse(date))) {
     return res.json({
       "error": "Invalid Date"
     });
-  } else {
-    return res.json({
-      "unix": new Date(date).getTime(), "utc": new Date(date).toUTCString()
-    });
-  };
+  }
+
+  return res.json({
+    "unix": new Date(Date.parse(date)).getTime(), "utc": new Date(Date.parse(date)).toUTCString()
+  });
 });
-
-
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
