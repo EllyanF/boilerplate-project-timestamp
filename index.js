@@ -46,11 +46,11 @@ app.get("/api/:date?", (req, res) => {
   //Sends JSON about invalid date format
   var gmtDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/gm;
   if (!(date.match(gmtDatePattern) instanceof Array) && isNaN(date)) {
-    return res.status(422).json({
+    return res.json({
       "error": "Invalid Date"
     });
   } else {
-    return res.status(200).json({
+    return res.json({
       "unix": new Date(date).getTime(), "utc": new Date(date).toUTCString()
     });
   };
