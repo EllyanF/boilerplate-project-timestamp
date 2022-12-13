@@ -25,7 +25,7 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.get("/api/:date", (req, res) => {
+app.get("/api/:date?", (req, res) => {
   var date = req.params.date;
   //Shows current date if parameter is empty
   if (date === undefined) {
@@ -39,7 +39,7 @@ app.get("/api/:date", (req, res) => {
   if (!(isNaN(date))) {
     var unixInNumber = parseInt(date);
     return res.json({
-      "unix": unixInNumber, "utc": new Date(unixInNumber).toUTCString()
+      "unix": date, "utc": new Date(unixInNumber).toUTCString()
     });
   };
 
